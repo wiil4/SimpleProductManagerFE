@@ -4,22 +4,22 @@
             <div class="card">
                 <div class="card-body text-center">
                     <span class="title">CREATE PRODUCT</span>
-                    <form class="mt-4">
+                    <form class="mt-4" [formGroup]="productForm" (ngSubmit)="addProduct()">
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Product">
+                            <input type="text" formControlName="product" class="form-control form-control-lg" placeholder="Product">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Category">
+                            <input type="text" formControlName="category" class="form-control form-control-lg" placeholder="Category">
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control form-control-lg" placeholder="Location">
+                            <input type="text" formControlName="location" class="form-control form-control-lg" placeholder="Location">
                         </div>
                         <div class="mb-3">
-                            <input type="number" class="form-control form-control-lg" placeholder="Price">
+                            <input type="number" formControlName="price" class="form-control form-control-lg" placeholder="Price">
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-secondary btn-lg float-start" routerLink="/products-list">RETURN</button>
-                            <button class="btn btn-success btn-lg float-end">CREATE</button>
+                            <button type="submit" class="btn btn-success btn-lg float-end">CREATE</button>
                         </div>
                     </form>
                 </div>
