@@ -9,6 +9,10 @@ import { CreateProductComponent } from './components/create-product/create-produ
 import { ProductsListComponent } from './components/products-list/products-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+//NGX TOASTR
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
