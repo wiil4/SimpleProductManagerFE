@@ -21,21 +21,25 @@ export class ProductsListComponent{
   }
 
   getProducts(){
-    this._productService.getProducts().subscribe(data => {
-      console.log(data);
-      this.productsList = data;
-    }, error =>{
-      console.log(error.message);
+    this._productService.getProducts().subscribe({
+      next:data=>{
+        this.productsList = data;
+      },
+      error:err=>{
+        console.log(err);
+      }
     });
   }
 
   deleteProduct(id:any){
-    this._productService.deleteProduct(id).subscribe(data=>{
-      this._toastr.error('Product has been deleted succesfully', 'Product Deleted');
-      this.getProducts();
-    }, error=>{
-      console.log(error.message);
+    this._productService.deleteProduct(id).subscribe({
+      next:data=>{
+        this._toastr.error('Product has been deleted succesfully', 'Product Deleted');
+        this.getProducts();
+      },
+      error:err=>{
+        console.log(err);
+      }
     });
-
   }
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
+import { ProductService } from 'src/app/services/product.service';
 
 
 @Component({
@@ -12,27 +13,91 @@ import { Product } from 'src/app/models/product';
 })
 export class CreateProductComponent {
   productForm!: FormGroup;
+  title = 'Create Product';
+  btnTxt = 'Create';
+  id:string;
 
   constructor(private _fb: FormBuilder, private _router:Router,
-    private toastr: ToastrService){
-
+    private toastr: ToastrService, private _productService:ProductService,
+    private aRouter:ActivatedRoute){
       this.productForm = this._fb.group({
-        product:['', Validators.required],
+        name:['', Validators.required],
         category:['', Validators.required],
         location:['', Validators.required],
         price:['', Validators.required]
-      })
+      });
+
+      this.id = this.aRouter.snapshot.paramMap.get('id')!;
   }
 
-  addProduct(){
+  ngOnInit(){
+    this.checkEdit();
+  }
+
+  checkEdit(){
+    if(this.id!==null){
+      this.title = 'Edit Product'; 
+      this.getProduct(this.id);
+      this.btnTxt = 'Update';
+    }
+  }
+
+  addEditProduct(){
     const product : Product ={
-      name:this.productForm.get('product')?.value,
+      name:this.productForm.get('name')?.value,
       category: this.productForm.get('category')?.value,
       location: this.productForm.get('location')?.value,
       price: this.productForm.get('price')?.value
     }
-    this.toastr.success('Succesfully added', 'Product Information');
-    this._router.navigate(['/']);
-    
+    if(this.id!==null){
+      this.updateProduct(this.id, product); 
+      //console.log('edit');
+      return;
+    }
+    //console.log('add');
+    this.addNewProduct(product);    
+  }
+
+  updateProduct(id:string, product:Product){
+    this._productService.updateProduct(id,product).subscribe({
+      next:data=>{
+        this.returnHome('Succesfully updated');
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
+  }
+
+  addNewProduct(product:Product){
+    this._productService.addProduct(product).subscribe({
+      next:data=>{
+        this.returnHome('Succesfully added');
+      },
+      error:err=>{
+        console.log(err);
+      }
+    });
+  }
+
+  getProduct(id:string){
+    this._productService.getProduct(id).subscribe({
+      next: data=>{
+        this.productForm.setValue({
+          name:data.name,
+          category:data.category,
+          location:data.location,
+          price:data.price
+        });
+      },
+      error: err=>{
+        console.log(err);
+      }
+    });
+  }
+
+  returnHome(info:string){
+    this.toastr.success(info, 'Product Information');
+    this._router.navigate(['/']); 
   }
 }

@@ -22,7 +22,7 @@
                           <td>{{product.location}}</td>
                           <td>{{product.price | currency: 'USD'}}</td>
                           <td>
-                              <i class="fas fa-solid fa-pen-to-square" style="color: #297055;" routerLink="/create-product"></i>
+                              <i [routerLink]="['/edit-product',product._id]" class="fas fa-solid fa-pen-to-square" style="color: #297055;" routerLink="/create-product"></i>
                               <i (click)="deleteProduct(product._id)" class="fas fa-sharp fa-solid fa-trash-can" style="color:#d42525"></i>                                
                           </td>
                         </tr>

@@ -3,11 +3,11 @@
         <div class="col-lg-6 offset-lg-3">
             <div class="card">
                 <div class="card-body text-center">
-                    <span class="title">PRODUCT INFO</span>
-                    <form class="mt-4" [formGroup]="productForm" (ngSubmit)="addProduct()">
+                    <span class="title">{{title | uppercase}}</span>
+                    <form class="mt-4" [formGroup]="productForm" (ngSubmit)="addEditProduct()">
                         <div class="mb-3">
-                            <input type="text" formControlName="product" class="form-control form-control-lg" placeholder="Product">
-                            <div class="text-danger" *ngIf="productForm.get('product')?.hasError('required') && productForm.get('product')?.touched">
+                            <input type="text" formControlName="name" class="form-control form-control-lg" placeholder="Name">
+                            <div class="text-danger" *ngIf="productForm.get('name')?.hasError('required') && productForm.get('name')?.touched">
                                 <span>Product name is required</span>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         </div>
                         <div class="mb-3">
                             <button class="btn btn-secondary btn-lg float-start" routerLink="/products-list">RETURN</button>
-                            <button type="submit" [disabled]="productForm.invalid" class="btn btn-success btn-lg float-end">CREATE</button>
+                            <button type="submit" [disabled]="productForm.invalid" class="btn btn-success btn-lg float-end">{{btnTxt | uppercase}}</button>
                         </div>
                     </form>
                 </div>
