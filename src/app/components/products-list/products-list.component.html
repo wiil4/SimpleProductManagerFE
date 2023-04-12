@@ -5,39 +5,40 @@
                 <div class="card-body text-center">
                     <span class="title">PRODUCTS LIST</span>
                     <button class="btn btn-success float-end" routerLink="/create-product">NEW</button>
-                    <table class="table table-bordered table-hover table-striped mt-5">
-                        <thead>
-                          <tr>
-                            <th scope="col">Product</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Location</th>
-                            <th scope="col">Price</th>
-                            <th scope="col"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Coke</td>
-                            <td>Drink</td>
-                            <td>La Paz</td>
-                            <td>2</td>
-                            <td>
-                                <i class="fas fa-solid fa-pen-to-square" style="color: #297055;" routerLink="/create-product"></i>
-                                <i class="fas fa-sharp fa-solid fa-trash-can" style="color:#d42525"></i>                                
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>Pepsi</td>
-                            <td>Drink</td>
-                            <td>Cochabamba</td>
-                            <td>4</td>
-                            <td>
-                                <i class="fas fa-solid fa-pen-to-square" style="color: #297055;"></i>
-                                <i class="fas fa-sharp fa-solid fa-trash-can" style="color:#d42525"></i>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <table *ngIf="productsList.length >0" class="table table-bordered table-hover table-striped mt-5">
+                      <thead>
+                        <tr>
+                          <th scope="col">Product</th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Location</th>
+                          <th scope="col">Price</th>
+                          <th scope="col"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let product of productsList">
+                          <td>{{product.name}}</td>
+                          <td>{{product.category}}</td>
+                          <td>{{product.location}}</td>
+                          <td>{{product.price | currency: 'USD'}}</td>
+                          <td>
+                              <i class="fas fa-solid fa-pen-to-square" style="color: #297055;" routerLink="/create-product"></i>
+                              <i (click)="deleteProduct(product._id)" class="fas fa-sharp fa-solid fa-trash-can" style="color:#d42525"></i>                                
+                          </td>
+                        </tr>
+                        <!--<tr>
+                          <td>Pepsi</td>
+                          <td>Drink</td>
+                          <td>Cochabamba</td>
+                          <td>4</td>
+                          <td>
+                              <i class="fas fa-solid fa-pen-to-square" style="color: #297055;"></i>
+                              <i class="fas fa-sharp fa-solid fa-trash-can" style="color:#d42525"></i>
+                          </td>
+                        </tr>-->
+                      </tbody>
+                    </table>
+                    <h5 *ngIf="productsList.length < 0">No hay productos para mostrar</h5>
                 </div>
             </div>
         </div>

@@ -4,14 +4,15 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/models/product';
 
+
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
 export class CreateProductComponent {
-  e:string ='e';
   productForm!: FormGroup;
+
   constructor(private _fb: FormBuilder, private _router:Router,
     private toastr: ToastrService){
 
